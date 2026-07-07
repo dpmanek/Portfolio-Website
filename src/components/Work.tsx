@@ -10,21 +10,30 @@ export default function Work() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.project-card')
-      // as the next card scrolls in, the pinned previous card recedes
-      cards.forEach((card, i) => {
-        const next = cards[i + 1]
-        if (!next) return
-        gsap.to(card, {
-          scale: 0.94,
-          filter: 'brightness(0.45)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: next,
-            start: 'top bottom',
-            end: 'top top+=120',
-            scrub: true,
-          },
+      const mm = gsap.matchMedia()
+      // cards only pin (position: sticky) above the mobile breakpoint,
+      // so the recede effect is meaningless below it
+      mm.add('(min-width: 861px)', () => {
+        const cards = gsap.utils.toArray<HTMLElement>('.project-card')
+        // as the next card scrolls in, the pinned previous card recedes
+        cards.forEach((card, i) => {
+          const next = cards[i + 1]
+          if (!next) return
+          gsap.fromTo(
+            card,
+            { scale: 1, filter: 'brightness(1)' },
+            {
+              scale: 0.94,
+              filter: 'brightness(0.45)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: next,
+                start: 'top bottom',
+                end: 'top top+=120',
+                scrub: true,
+              },
+            },
+          )
         })
       })
 
