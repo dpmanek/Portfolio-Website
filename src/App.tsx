@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import Preloader from './components/Preloader'
+import SystemCanvas from './components/SystemCanvas'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -60,6 +61,7 @@ export default function App() {
     <>
       {!loaded && <Preloader onDone={() => setLoaded(true)} />}
       <div className="grain" aria-hidden="true" />
+      <SystemCanvas />
       <Cursor />
       <Nav onNavigate={navigate} />
       <main>

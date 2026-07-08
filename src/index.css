@@ -7,7 +7,7 @@
   --acid: #d9ff3f;
   --acid-dim: rgba(217, 255, 63, 0.14);
   --line: rgba(236, 236, 234, 0.1);
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --gutter: clamp(1.25rem, 4vw, 4rem);
@@ -148,6 +148,30 @@ button {
   border-color: rgba(217, 255, 63, 0.9);
 }
 
+.cursor-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.52rem;
+  color: var(--acid);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-ring.has-label {
+  width: 72px;
+  height: 72px;
+  background: rgba(10, 10, 11, 0.65);
+  border-color: rgba(217, 255, 63, 0.9);
+  backdrop-filter: blur(3px);
+}
+
+.cursor-ring.has-label .cursor-label {
+  opacity: 1;
+}
+
 @media (hover: none), (pointer: coarse) {
   .cursor-dot,
   .cursor-ring {
@@ -269,6 +293,27 @@ button {
   }
 }
 
+/* ---------- system canvas ---------- */
+
+.system-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.system-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- hero ---------- */
 
 .hero {
@@ -279,18 +324,6 @@ button {
   justify-content: flex-end;
   padding: 0 var(--gutter) clamp(2rem, 6vh, 4rem);
   overflow: hidden;
-}
-
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-canvas canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .hero-content {
@@ -424,7 +457,6 @@ button {
   display: flex;
   gap: 3rem;
   width: max-content;
-  animation: marquee 28s linear infinite;
 }
 
 .marquee-track span {
@@ -443,10 +475,6 @@ button {
   content: '◆';
   color: var(--acid);
   font-size: 0.6rem;
-}
-
-@keyframes marquee {
-  to { transform: translateX(-50%); }
 }
 
 /* ---------- manifesto ---------- */

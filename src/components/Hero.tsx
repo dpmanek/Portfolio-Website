@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import HeroCanvas from './HeroCanvas'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Scramble from './Scramble'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Props {
   loaded: boolean
@@ -11,6 +14,8 @@ export default function Hero({ loaded }: Props) {
 
   useEffect(() => {
     if (!loaded) return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const rootEl = rootRef.current!
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
       tl.fromTo(
@@ -24,17 +29,32 @@ export default function Hero({ loaded }: Props) {
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.08 },
         '-=0.6',
       )
+
+      if (!reduced) {
+        // kinetic weight: the name thins out and drifts as it scrolls away
+        gsap.to('.hero-title', {
+          fontVariationSettings: "'wght' 320",
+          letterSpacing: '0.01em',
+          ease: 'none',
+          scrollTrigger: { trigger: rootEl, start: 'top top', end: 'bottom top', scrub: 0.3 },
+        })
+        gsap.to('.hero-content', {
+          yPercent: 14,
+          opacity: 0.35,
+          ease: 'none',
+          scrollTrigger: { trigger: rootEl, start: 'top top', end: 'bottom top', scrub: 0.3 },
+        })
+      }
     }, rootRef)
     return () => ctx.revert()
   }, [loaded])
 
   return (
     <section className="hero" id="top" ref={rootRef}>
-      <HeroCanvas />
       <div className="hero-content">
         <div className="hero-eyebrow mono" style={{ opacity: 0 }}>
           <span className="dot" />
-          Forward Deployed AI Engineer — New York City
+          <Scramble text="Forward Deployed AI Engineer — New York City" duration={900} />
         </div>
         <h1 className="hero-title" aria-label="Deep Manek">
           <span className="line">

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PROJECTS } from '../data'
+import Scramble from './Scramble'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -58,7 +59,7 @@ export default function Work() {
     <section className="section" id="work" ref={rootRef}>
       <div className="section-label mono">
         <span className="idx">02</span>
-        <span>Selected Work</span>
+        <Scramble text="Selected Work" />
       </div>
       <p className="work-intro">
         Systems shipped inside enterprises, plus open R&D. Each one deployed, measured, and used.
@@ -68,6 +69,7 @@ export default function Work() {
           <article
             className={`project-card${p.flagship ? ' flagship' : ''}`}
             data-index={p.index}
+            data-cursor="view"
             key={p.title}
           >
             <div className="project-head">
