@@ -1376,3 +1376,100 @@ footer {
   fill: var(--ink-dim);
   font-size: 9px;
 }
+
+/* ---------- console FAB + hint ---------- */
+
+.fab-console {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2.2rem);
+  bottom: 3.2rem;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 99px;
+  background: rgba(14, 14, 16, 0.92);
+  border: 1px solid rgba(217, 255, 63, 0.45);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 24px rgba(217, 255, 63, 0.08);
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.fab-console:hover {
+  transform: translateY(-2px);
+  border-color: var(--acid);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.55), 0 0 34px rgba(217, 255, 63, 0.16);
+}
+
+.fab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acid);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.fab-label {
+  color: var(--ink);
+  font-size: 0.66rem;
+}
+
+.fab-key {
+  color: var(--ink-dim);
+  font-size: 0.58rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 0.15rem 0.4rem;
+}
+
+.fab-hint {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2.2rem);
+  bottom: 6.6rem;
+  z-index: 95;
+  max-width: 260px;
+  padding: 0.8rem 1rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink);
+  background: rgba(14, 14, 16, 0.95);
+  border: 1px solid rgba(217, 255, 63, 0.35);
+  border-radius: 12px 12px 4px 12px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.55);
+  animation: hint-in 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.fab-hint em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--acid);
+}
+
+@keyframes hint-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 760px) {
+  .fab-key { display: none; }
+  .fab-console { bottom: 2.8rem; }
+}
+
+/* constellation sizing: never taller than ~70vh, centered */
+
+.constellation {
+  max-width: min(100%, calc(70vh * 1.5));
+  display: block;
+  margin-inline: auto;
+}
+
+.c-node.center {
+  cursor: pointer;
+}
+
+.c-ask {
+  fill: var(--acid) !important;
+  font-size: 10px !important;
+  opacity: 0.85;
+}
