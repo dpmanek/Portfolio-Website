@@ -23,8 +23,12 @@ interface EdgeDef {
   rest: number
 }
 
-const W = 900
-const H = 620
+const W = 960
+const H = 640
+
+// compound entries ("Vector DBs · FAISS / Pinecone") collide at graph scale —
+// display the head term only; the full list stays in the mobile pills & agent
+const shortLabel = (item: string) => item.split('·')[0].trim()
 
 function buildGraph(): { nodes: Node[]; edges: EdgeDef[] } {
   const nodes: Node[] = []
@@ -36,26 +40,26 @@ function buildGraph(): { nodes: Node[]; edges: EdgeDef[] } {
 
   STACK_GROUPS.forEach((g, gi) => {
     const angle = (gi / STACK_GROUPS.length) * Math.PI * 2 - Math.PI / 2
-    const hx = cx + Math.cos(angle) * 170
-    const hy = cy + Math.sin(angle) * 130
+    const hx = cx + Math.cos(angle) * 195
+    const hy = cy + Math.sin(angle) * 150
     const hubIndex = nodes.length
     nodes.push({ id: g.name, label: g.name, kind: 'hub', group: gi, x: hx, y: hy, vx: 0, vy: 0, pinned: false })
-    edges.push({ a: 0, b: hubIndex, rest: 165 })
+    edges.push({ a: 0, b: hubIndex, rest: 195 })
 
     g.items.forEach((item, ii) => {
       const ia = angle + ((ii / g.items.length) - 0.5) * 1.9
       nodes.push({
         id: `${g.name}/${item}`,
-        label: item,
+        label: shortLabel(item),
         kind: 'item',
         group: gi,
-        x: hx + Math.cos(ia) * 95 + (Math.random() - 0.5) * 24,
-        y: hy + Math.sin(ia) * 95 + (Math.random() - 0.5) * 24,
+        x: hx + Math.cos(ia) * 105 + (Math.random() - 0.5) * 24,
+        y: hy + Math.sin(ia) * 105 + (Math.random() - 0.5) * 24,
         vx: 0,
         vy: 0,
         pinned: false,
       })
-      edges.push({ a: hubIndex, b: nodes.length - 1, rest: 92 })
+      edges.push({ a: hubIndex, b: nodes.length - 1, rest: 108 })
     })
   })
 
@@ -84,8 +88,8 @@ function step(nodes: Node[], edges: EdgeDef[]) {
       const dx = b.x - a.x
       const dy = b.y - a.y
       const d2 = Math.max(dx * dx + dy * dy, 40)
-      if (d2 > 32000) continue
-      const f = 380 / d2
+      if (d2 > 36000) continue
+      const f = 560 / d2
       const d = Math.sqrt(d2)
       const fx = (dx / d) * f
       const fy = (dy / d) * f
@@ -214,8 +218,12 @@ export default function Constellation() {
           key={n.id}
           className={`c-node ${n.kind}${dimmed(n) ? ' dim' : ''}`}
           transform={`translate(${n.x}, ${n.y})`}
-          data-cursor="drag"
+          data-cursor={n.kind === 'center' ? 'talk' : 'drag'}
+          onClick={() => {
+            if (n.kind === 'center') window.dispatchEvent(new CustomEvent('deepos:open'))
+          }}
           onPointerDown={(e) => {
+            if (n.kind === 'center') return
             dragRef.current = i
             n.pinned = true
             ;(e.target as Element).setPointerCapture?.(e.pointerId)
@@ -223,8 +231,9 @@ export default function Constellation() {
           onPointerEnter={() => setHover(i)}
           onPointerLeave={() => setHover(null)}
         >
-          <circle r={n.kind === 'center' ? 10 : n.kind === 'hub' ? 6 : 3.2} />
-          <text y={n.kind === 'item' ? -8 : -13}>{n.label}</text>
+          <circle r={n.kind === 'center' ? 11 : n.kind === 'hub' ? 6 : 3.2} />
+          <text y={n.kind === 'center' ? -20 : n.kind === 'hub' ? -16 : -9}>{n.label}</text>
+          {n.kind === 'center' && <text y={26} className="c-ask">ask me ↗</text>}
         </g>
       ))}
     </svg>
