@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 interface Props {
   onNavigate: (id: string) => void
+  onOpenConsole: () => void
 }
 
 const LINKS = [
@@ -21,7 +22,7 @@ function nycTime() {
   })
 }
 
-export default function Nav({ onNavigate }: Props) {
+export default function Nav({ onNavigate, onOpenConsole }: Props) {
   const [time, setTime] = useState(nycTime())
 
   useEffect(() => {
@@ -40,6 +41,9 @@ export default function Nav({ onNavigate }: Props) {
             {l.label}
           </button>
         ))}
+        <button className="nav-console" onClick={onOpenConsole} data-cursor="talk">
+          DEEP·OS <span>⌘K</span>
+        </button>
       </div>
       <div className="clock mono">NYC {time}</div>
     </nav>

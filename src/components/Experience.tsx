@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { JOBS } from '../data'
+import Scramble from './Scramble'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -9,7 +10,12 @@ export default function Experience() {
   const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
+      if (reduced) {
+        gsap.set('.exp-line-fill', { scaleY: 1 })
+        return
+      }
       gsap.to('.exp-line-fill', {
         scaleY: 1,
         ease: 'none',
@@ -42,7 +48,7 @@ export default function Experience() {
     <section className="section" id="experience" ref={rootRef}>
       <div className="section-label mono">
         <span className="idx">03</span>
-        <span>Experience</span>
+        <Scramble text="Deployment History" />
       </div>
       <div className="exp-list">
         <div className="exp-line">
@@ -66,7 +72,7 @@ export default function Experience() {
                 {job.engagements.map((e) => (
                   <div className="engagement" data-hover key={e.client}>
                     <div className="client">
-                      {e.client}
+                      <Scramble text={e.client} duration={500} />
                       <span className="mono">{e.role}</span>
                     </div>
                     <p>{e.detail}</p>
