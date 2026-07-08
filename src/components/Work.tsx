@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PROJECTS } from '../data'
 import Scramble from './Scramble'
+import ArchDiagram from './ArchDiagram'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -77,6 +78,7 @@ export default function Work() {
               <h3>{p.title}</h3>
               <div className="subtitle mono">{p.subtitle}</div>
               <p className="desc">{p.description}</p>
+              {p.flagship && <ArchDiagram />}
             </div>
             <div className="project-side">
               <div className="project-metric">
