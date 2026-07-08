@@ -52,7 +52,8 @@ export default function App() {
     return () => clearTimeout(t)
   }, [loaded])
 
-  // ⌘K / Ctrl+K opens the DEEP·OS console
+  // ⌘K / Ctrl+K opens the DEEP·OS console; anything on the page can request
+  // it via a 'deepos:open' event (e.g. the constellation's center node)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -62,9 +63,36 @@ export default function App() {
         setConsoleOpen(false)
       }
     }
+    const onOpen = () => setConsoleOpen(true)
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    window.addEventListener('deepos:open', onOpen)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('deepos:open', onOpen)
+    }
   }, [])
+
+  // one-time hint pointing at the console launcher
+  const [hint, setHint] = useState(false)
+  useEffect(() => {
+    if (!loaded || localStorage.getItem('deepos-hint')) return
+    const show = setTimeout(() => setHint(true), 3500)
+    const hide = setTimeout(() => {
+      setHint(false)
+      localStorage.setItem('deepos-hint', '1')
+    }, 11000)
+    return () => {
+      clearTimeout(show)
+      clearTimeout(hide)
+    }
+  }, [loaded])
+
+  useEffect(() => {
+    if (consoleOpen && hint) {
+      setHint(false)
+      localStorage.setItem('deepos-hint', '1')
+    }
+  }, [consoleOpen, hint])
 
   const navigate = useCallback((id: string) => {
     const target = id === 'top' ? 0 : `#${id}`
@@ -102,6 +130,23 @@ export default function App() {
         </a>
       </footer>
       <Hud onOpenConsole={() => setConsoleOpen(true)} />
+      {!consoleOpen && (
+        <button
+          className="fab-console"
+          onClick={() => setConsoleOpen(true)}
+          data-cursor="talk"
+          aria-label="Open DEEP·OS — ask this site anything"
+        >
+          <span className="fab-dot" />
+          <span className="fab-label mono">ask deep·os</span>
+          <span className="fab-key mono">⌘K</span>
+        </button>
+      )}
+      {hint && !consoleOpen && (
+        <div className="fab-hint" role="status">
+          This site talks. Ask it anything — it will answer <em>and</em> drive the page.
+        </div>
+      )}
       {consoleOpen && (
         <Suspense fallback={null}>
           <DeepOS open onClose={() => setConsoleOpen(false)} onNavigate={navigate} />
