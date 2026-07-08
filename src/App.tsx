@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import Preloader from './components/Preloader'
-import SystemCanvas from './components/SystemCanvas'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -13,9 +12,12 @@ import Work from './components/Work'
 import Experience from './components/Experience'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
-import DeepOS from './components/DeepOS'
 import Hud from './components/Hud'
 import { LINKS } from './data'
+
+// three.js and the console only load when needed — keeps the core bundle lean
+const SystemCanvas = lazy(() => import('./components/SystemCanvas'))
+const DeepOS = lazy(() => import('./components/DeepOS'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -78,7 +80,9 @@ export default function App() {
     <>
       {!loaded && <Preloader onDone={() => setLoaded(true)} />}
       <div className="grain" aria-hidden="true" />
-      <SystemCanvas />
+      <Suspense fallback={null}>
+        <SystemCanvas />
+      </Suspense>
       <Cursor />
       <Nav onNavigate={navigate} onOpenConsole={() => setConsoleOpen(true)} />
       <main>
@@ -98,7 +102,11 @@ export default function App() {
         </a>
       </footer>
       <Hud onOpenConsole={() => setConsoleOpen(true)} />
-      <DeepOS open={consoleOpen} onClose={() => setConsoleOpen(false)} onNavigate={navigate} />
+      {consoleOpen && (
+        <Suspense fallback={null}>
+          <DeepOS open onClose={() => setConsoleOpen(false)} onNavigate={navigate} />
+        </Suspense>
+      )}
     </>
   )
 }

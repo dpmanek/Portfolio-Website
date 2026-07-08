@@ -12,7 +12,16 @@ export default function Manifesto() {
   const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
+      if (reduced) {
+        gsap.set('.manifesto .word', { opacity: 1 })
+        document.querySelectorAll<HTMLElement>('.stat .num').forEach((el) => {
+          const span = el.querySelector('.val')
+          if (span) span.textContent = el.dataset.value ?? '0'
+        })
+        return
+      }
       gsap.to('.manifesto .word', {
         opacity: 1,
         stagger: 0.4,
