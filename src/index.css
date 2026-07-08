@@ -981,3 +981,283 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- nav console trigger ---------- */
+
+.nav-console {
+  color: var(--acid);
+  border: 1px solid rgba(217, 255, 63, 0.35);
+  border-radius: 99px;
+  padding: 0.3rem 0.8rem !important;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.nav-console span {
+  opacity: 0.6;
+  margin-left: 0.35rem;
+}
+
+.nav-console:hover {
+  background: var(--acid);
+  color: var(--bg);
+}
+
+.nav-console::after {
+  display: none;
+}
+
+/* ---------- DEEP·OS console ---------- */
+
+.deepos-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(10, 10, 11, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1rem, 8vh, 6rem) 1rem 1rem;
+  animation: deepos-in 0.25s ease;
+}
+
+@keyframes deepos-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.deepos {
+  width: min(680px, 100%);
+  max-height: min(70vh, 640px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(14, 14, 16, 0.96);
+  border: 1px solid rgba(217, 255, 63, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(217, 255, 63, 0.05);
+  overflow: hidden;
+  animation: deepos-pop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes deepos-pop {
+  from { transform: translateY(14px) scale(0.98); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.deepos-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-dim);
+}
+
+.deepos-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+}
+
+.deepos-title .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--acid);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.deepos-mode {
+  margin-left: auto;
+  color: var(--acid);
+  font-size: 0.6rem;
+}
+
+.deepos-close {
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.6rem;
+}
+
+.deepos-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.1rem;
+  display: grid;
+  gap: 0.9rem;
+  min-height: 180px;
+}
+
+.deepos-empty p {
+  color: var(--ink-faint);
+  margin-bottom: 1rem;
+}
+
+.deepos-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.deepos-chips button {
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 0.45rem 0.9rem;
+  transition: border-color 0.25s ease, color 0.25s ease;
+  text-align: left;
+}
+
+.deepos-chips button:hover {
+  border-color: rgba(217, 255, 63, 0.5);
+  color: var(--ink);
+}
+
+.deepos-line {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.deepos-line .prompt {
+  color: var(--acid);
+  padding-top: 0.15rem;
+}
+
+.deepos-line .body {
+  white-space: pre-wrap;
+  line-height: 1.55;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.deepos-line.user .body {
+  color: var(--ink-dim);
+}
+
+.deepos-caret {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--acid);
+  vertical-align: text-bottom;
+  animation: caret-blink 0.8s steps(2) infinite;
+}
+
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+
+.deepos-input {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.1rem;
+  border-top: 1px solid var(--line);
+}
+
+.deepos-input .prompt {
+  color: var(--acid);
+  animation: caret-blink 1.2s steps(2) infinite;
+}
+
+.deepos-input input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.deepos-input input::placeholder {
+  color: var(--ink-faint);
+}
+
+.deepos-input button {
+  color: var(--ink-dim);
+  font-size: 0.62rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.deepos-input button:hover:not(:disabled) {
+  color: var(--acid);
+  border-color: rgba(217, 255, 63, 0.5);
+}
+
+/* ---------- HUD ---------- */
+
+.hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0.45rem var(--gutter);
+  font-size: 0.6rem;
+  color: var(--ink-dim);
+  background: rgba(10, 10, 11, 0.75);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+}
+
+.hud-console {
+  color: var(--acid);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+}
+
+.hud-console .hud-key {
+  opacity: 0.55;
+  margin-left: 0.3rem;
+}
+
+.hud-item {
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--acid);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hud-status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acid);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.footer {
+  padding-bottom: 2.6rem !important;
+}
+
+@media (max-width: 760px) {
+  .hud-wide {
+    display: none;
+  }
+  .deepos-overlay {
+    padding: 0.75rem;
+  }
+  .deepos {
+    max-height: 80vh;
+  }
+}
