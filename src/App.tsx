@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -12,12 +12,18 @@ import Work from './components/Work'
 import Experience from './components/Experience'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
+import Hud from './components/Hud'
 import { LINKS } from './data'
+
+// three.js and the console only load when needed — keeps the core bundle lean
+const SystemCanvas = lazy(() => import('./components/SystemCanvas'))
+const DeepOS = lazy(() => import('./components/DeepOS'))
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const [loaded, setLoaded] = useState(false)
+  const [consoleOpen, setConsoleOpen] = useState(false)
   const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {
@@ -46,7 +52,21 @@ export default function App() {
     return () => clearTimeout(t)
   }, [loaded])
 
-  const navigate = (id: string) => {
+  // ⌘K / Ctrl+K opens the DEEP·OS console
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setConsoleOpen((v) => !v)
+      } else if (e.key === 'Escape') {
+        setConsoleOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const navigate = useCallback((id: string) => {
     const target = id === 'top' ? 0 : `#${id}`
     if (lenisRef.current) {
       lenisRef.current.scrollTo(target as never, { offset: id === 'top' ? 0 : -40 })
@@ -54,14 +74,17 @@ export default function App() {
       if (id === 'top') window.scrollTo({ top: 0 })
       else document.getElementById(id)?.scrollIntoView()
     }
-  }
+  }, [])
 
   return (
     <>
       {!loaded && <Preloader onDone={() => setLoaded(true)} />}
       <div className="grain" aria-hidden="true" />
+      <Suspense fallback={null}>
+        <SystemCanvas />
+      </Suspense>
       <Cursor />
-      <Nav onNavigate={navigate} />
+      <Nav onNavigate={navigate} onOpenConsole={() => setConsoleOpen(true)} />
       <main>
         <Hero loaded={loaded} />
         <Marquee />
@@ -78,6 +101,12 @@ export default function App() {
           github/dpmanek
         </a>
       </footer>
+      <Hud onOpenConsole={() => setConsoleOpen(true)} />
+      {consoleOpen && (
+        <Suspense fallback={null}>
+          <DeepOS open onClose={() => setConsoleOpen(false)} onNavigate={navigate} />
+        </Suspense>
+      )}
     </>
   )
 }
