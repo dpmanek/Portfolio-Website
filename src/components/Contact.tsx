@@ -10,7 +10,9 @@ export default function Contact() {
   const btnRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
+      if (reduced) return
       gsap.fromTo(
         '.contact h2 .word',
         { yPercent: 115 },

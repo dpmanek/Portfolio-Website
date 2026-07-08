@@ -10,7 +10,12 @@ export default function Experience() {
   const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const ctx = gsap.context(() => {
+      if (reduced) {
+        gsap.set('.exp-line-fill', { scaleY: 1 })
+        return
+      }
       gsap.to('.exp-line-fill', {
         scaleY: 1,
         ease: 'none',

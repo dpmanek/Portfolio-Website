@@ -11,6 +11,7 @@ export default function Work() {
   const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia()
       // cards only pin (position: sticky) above the mobile breakpoint,

@@ -17,6 +17,10 @@ export default function Hero({ loaded }: Props) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const rootEl = rootRef.current!
     const ctx = gsap.context(() => {
+      if (reduced) {
+        gsap.set(['.hero-eyebrow', '.hero-tagline', '.hero-meta', '.hero-scroll'], { opacity: 1 })
+        return
+      }
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
       tl.fromTo(
         '.hero-title .word',
