@@ -67,7 +67,7 @@ export default function Experience() {
                 {job.engagements.map((e) => (
                   <div className="engagement" data-hover key={e.client}>
                     <div className="client">
-                      {e.client}
+                      <Scramble text={e.client} duration={500} />
                       <span className="mono">{e.role}</span>
                     </div>
                     <p>{e.detail}</p>
