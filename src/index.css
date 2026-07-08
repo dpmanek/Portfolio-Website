@@ -9,6 +9,7 @@
   --line: rgba(236, 236, 234, 0.1);
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --gutter: clamp(1.25rem, 4vw, 4rem);
 }
 
@@ -359,7 +360,10 @@ button {
 
 .hero-tagline em {
   color: var(--ink);
-  font-style: normal;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.12em;
+  letter-spacing: 0.01em;
 }
 
 .hero-meta {
@@ -461,6 +465,10 @@ button {
 
 .manifesto .accent {
   color: var(--acid);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.08em;
 }
 
 /* ---------- stats ---------- */
