@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { STACK_GROUPS } from '../data'
+import Scramble from './Scramble'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,7 +33,7 @@ export default function Stack() {
     <section className="section" id="stack" ref={rootRef}>
       <div className="section-label mono">
         <span className="idx">04</span>
-        <span>Arsenal</span>
+        <Scramble text="Arsenal" />
       </div>
       <div className="stack-groups">
         {STACK_GROUPS.map((g) => (

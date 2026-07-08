@@ -39,7 +39,7 @@ export default function Preloader({ onDone }: Props) {
 
   return (
     <div className="preloader" ref={rootRef}>
-      <div className="mono boot">booting deep.manek — nyc</div>
+      <div className="mono boot">initializing deep·os — nyc edge</div>
       <div className="count">
         <span ref={countRef}>0</span>
         <span className="pct">%</span>

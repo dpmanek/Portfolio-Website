@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { JOBS } from '../data'
+import Scramble from './Scramble'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,7 +43,7 @@ export default function Experience() {
     <section className="section" id="experience" ref={rootRef}>
       <div className="section-label mono">
         <span className="idx">03</span>
-        <span>Experience</span>
+        <Scramble text="Deployment History" />
       </div>
       <div className="exp-list">
         <div className="exp-line">

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { MANIFESTO, STATS } from '../data'
+import Scramble from './Scramble'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -46,7 +47,7 @@ export default function Manifesto() {
     <section className="section manifesto" ref={rootRef}>
       <div className="section-label mono">
         <span className="idx">01</span>
-        <span>The Work</span>
+        <Scramble text="The Work" />
       </div>
       <p>
         {MANIFESTO.split(' ').map((w, i) => (
