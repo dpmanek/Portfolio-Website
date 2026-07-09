@@ -1,6 +1,6 @@
 // Vercel Edge function: streaming proxy between the DEEP·OS palette and the
 // Anthropic API. Holds the API key server-side and passes SSE straight through.
-import { PROJECTS, JOBS, STACK_GROUPS, MANIFESTO, LINKS } from '../src/data'
+import { PROJECTS, JOBS, STACK_GROUPS, MANIFESTO, LINKS } from '../src/data.js'
 
 export const config = { runtime: 'edge' }
 

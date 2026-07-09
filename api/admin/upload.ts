@@ -20,15 +20,16 @@ export default async function handler(req: Request): Promise<Response> {
     return json({ error: 'unauthorized' }, 401)
   }
 
-  let file: unknown
+  let file: Blob | null = null
   try {
     const form = await req.formData()
-    file = form.get('file')
+    const entry = form.get('file')
+    if (entry && typeof entry !== 'string') file = entry as Blob
   } catch {
     return json({ error: 'bad_request' }, 400)
   }
 
-  if (!(file instanceof File)) return json({ error: 'no_file' }, 400)
+  if (!file) return json({ error: 'no_file' }, 400)
   if (file.type !== 'application/pdf') return json({ error: 'pdf_only' }, 400)
   if (file.size > MAX_BYTES) return json({ error: 'too_large' }, 400)
 
