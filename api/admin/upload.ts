@@ -1,7 +1,7 @@
-// Hidden résumé-replace endpoint for the /admin page. Password-gated entirely
-// server-side (the check never reaches the client bundle). Requires two env
-// vars in Vercel: ADMIN_PASSWORD (you choose) and BLOB_READ_WRITE_TOKEN
-// (auto-set when a Blob store is connected to the project).
+// Hidden résumé-replace endpoint for the /admin page. Access is gated by the
+// Basic Auth edge middleware (see middleware.ts) — this route is only reachable
+// after a valid ADMIN_USER/ADMIN_PASSWORD, so it does no password check itself.
+// Requires BLOB_READ_WRITE_TOKEN (auto-set when a Blob store is connected).
 import { put } from '@vercel/blob'
 
 export const config = { runtime: 'nodejs' }
@@ -10,15 +10,6 @@ const MAX_BYTES = 8 * 1024 * 1024 // 8 MB
 
 export default async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405)
-
-  const password = process.env.ADMIN_PASSWORD
-  if (!password) return json({ error: 'disabled' }, 503)
-
-  const given = req.headers.get('x-admin-password') ?? ''
-  // length gate first, then a full compare — good enough for a single-user tool
-  if (given.length !== password.length || given !== password) {
-    return json({ error: 'unauthorized' }, 401)
-  }
 
   let file: Blob | null = null
   try {
