@@ -5,6 +5,10 @@ export const LINKS = {
   resume: '/api/resume',
 }
 
+// Flip to true once a résumé PDF is live (dropped in public/ or uploaded via
+// /admin). Until then the download links stay hidden so nobody hits a dead link.
+export const RESUME_ENABLED = false
+
 export interface Project {
   index: string
   title: string
