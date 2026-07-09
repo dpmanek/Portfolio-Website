@@ -4,7 +4,7 @@
 // (auto-set when a Blob store is connected to the project).
 import { put } from '@vercel/blob'
 
-export const config = { runtime: 'edge' }
+export const config = { runtime: 'nodejs' }
 
 const MAX_BYTES = 8 * 1024 * 1024 // 8 MB
 

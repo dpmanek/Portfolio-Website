@@ -4,7 +4,7 @@
 // without a redeploy, while still working before Blob is configured.
 import { list } from '@vercel/blob'
 
-export const config = { runtime: 'edge' }
+export const config = { runtime: 'nodejs' }
 
 export default async function handler(req: Request): Promise<Response> {
   try {
