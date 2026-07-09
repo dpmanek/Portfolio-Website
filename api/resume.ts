@@ -6,17 +6,23 @@ import { list } from '@vercel/blob'
 
 export const config = { runtime: 'nodejs' }
 
-export default async function handler(req: Request): Promise<Response> {
+// Relative Location works regardless of runtime; browsers resolve it against
+// the request URL. Avoids parsing req.url, which isn't an absolute base here.
+function redirect(location: string): Response {
+  return new Response(null, { status: 302, headers: { Location: location } })
+}
+
+export default async function handler(): Promise<Response> {
   try {
     const { blobs } = await list({ prefix: 'resume/' })
     if (blobs.length) {
       const latest = blobs.sort(
         (a, b) => +new Date(b.uploadedAt) - +new Date(a.uploadedAt),
       )[0]
-      return Response.redirect(latest.url, 302)
+      return redirect(latest.url)
     }
   } catch {
     // Blob not configured (no token) — fall through to the static file
   }
-  return Response.redirect(new URL('/resume.pdf', req.url).toString(), 302)
+  return redirect('/resume.pdf')
 }
