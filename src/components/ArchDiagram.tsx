@@ -4,11 +4,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Self-drawing architecture diagram for the flagship Migration Intelligence
+// Self-drawing architecture diagram for the flagship Document Intelligence
 // Engine: connectors draw in and nodes light up as the card scrolls into view.
 
 const NODES = [
-  { x: 20, y: 30, w: 150, label: 'Enterprise Docs', sub: 'AIF · TMD · ALD' },
+  { x: 20, y: 30, w: 150, label: 'Enterprise Docs', sub: 'intake schemas' },
   { x: 220, y: 30, w: 150, label: 'Lambda Ingestion', sub: 'chunk + embed' },
   { x: 420, y: 30, w: 160, label: 'OpenSearch RAG', sub: 'vector retrieval' },
   { x: 630, y: 30, w: 150, label: 'AWS Bedrock', sub: 'contextual Q&A' },
