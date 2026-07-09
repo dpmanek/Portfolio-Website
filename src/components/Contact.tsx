@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { track } from '@vercel/analytics'
-import { LINKS } from '../data'
+import { LINKS, RESUME_ENABLED } from '../data'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -67,28 +67,32 @@ export default function Contact() {
         <a className="magnetic-btn" href={`mailto:${LINKS.email}`} ref={btnRef}>
           Reach Deep <span>↗</span>
         </a>
-        <a
-          className="ghost-btn"
-          href={LINKS.resume}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track('resume_download', { where: 'contact' })}
-        >
-          Résumé <span>↓</span>
-        </a>
+        {RESUME_ENABLED && (
+          <a
+            className="ghost-btn"
+            href={LINKS.resume}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => track('resume_download', { where: 'contact' })}
+          >
+            Résumé <span>↓</span>
+          </a>
+        )}
       </div>
       <div className="contact-links mono">
         <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
         <a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
         <a href={`mailto:${LINKS.email}`}>Email</a>
-        <a
-          href={LINKS.resume}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track('resume_download', { where: 'contact-links' })}
-        >
-          Résumé
-        </a>
+        {RESUME_ENABLED && (
+          <a
+            href={LINKS.resume}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => track('resume_download', { where: 'contact-links' })}
+          >
+            Résumé
+          </a>
+        )}
       </div>
     </section>
   )

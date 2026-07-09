@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { track } from '@vercel/analytics'
-import { LINKS } from '../data'
+import { LINKS, RESUME_ENABLED } from '../data'
 
 interface Props {
   onNavigate: (id: string) => void
@@ -43,15 +43,17 @@ export default function Nav({ onNavigate, onOpenConsole }: Props) {
             {l.label}
           </button>
         ))}
-        <a
-          className="nav-resume"
-          href={LINKS.resume}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track('resume_download', { where: 'nav' })}
-        >
-          Résumé <span>↓</span>
-        </a>
+        {RESUME_ENABLED && (
+          <a
+            className="nav-resume"
+            href={LINKS.resume}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => track('resume_download', { where: 'nav' })}
+          >
+            Résumé <span>↓</span>
+          </a>
+        )}
         <button className="nav-console" onClick={onOpenConsole} data-cursor="talk">
           DEEP·OS <span>⌘K</span>
         </button>

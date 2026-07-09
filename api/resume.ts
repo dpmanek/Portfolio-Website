@@ -13,16 +13,20 @@ function redirect(location: string): Response {
 }
 
 export default async function handler(): Promise<Response> {
-  try {
-    const { blobs } = await list({ prefix: 'resume/' })
-    if (blobs.length) {
-      const latest = blobs.sort(
-        (a, b) => +new Date(b.uploadedAt) - +new Date(a.uploadedAt),
-      )[0]
-      return redirect(latest.url)
+  // Only touch Blob when it's actually configured — an unset token makes
+  // list() hang instead of throwing, which would time the function out.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { blobs } = await list({ prefix: 'resume/' })
+      if (blobs.length) {
+        const latest = blobs.sort(
+          (a, b) => +new Date(b.uploadedAt) - +new Date(a.uploadedAt),
+        )[0]
+        return redirect(latest.url)
+      }
+    } catch {
+      // fall through to the static file
     }
-  } catch {
-    // Blob not configured (no token) — fall through to the static file
   }
   return redirect('/resume.pdf')
 }
