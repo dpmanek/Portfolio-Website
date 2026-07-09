@@ -2,6 +2,7 @@ export const LINKS = {
   email: 'dpmanek@gmail.com',
   github: 'https://github.com/dpmanek',
   linkedin: 'https://www.linkedin.com/in/deepmanek',
+  resume: '/api/resume',
 }
 
 export interface Project {
@@ -20,10 +21,10 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     index: '01',
-    title: 'Migration Intelligence Engine',
+    title: 'Document Intelligence Engine',
     subtitle: 'AI-powered migration discovery platform',
     description:
-      'Replaced static AIF/TMD/ALD intake documents with a dynamic, schema-driven questionnaire. A React + TypeScript front end renders fields, validations, and guided discovery flows from backend-generated JSON schemas, while AWS Bedrock, Lambda, DynamoDB, and OpenSearch-based RAG handle document ingestion, contextual Q&A, and migration recommendations.',
+      'Replaced static intake documents with a dynamic, schema-driven questionnaire. A React + TypeScript front end renders fields, validations, and guided discovery flows from backend-generated JSON schemas, while AWS Bedrock, Lambda, DynamoDB, and OpenSearch-based RAG handle document ingestion, contextual Q&A, and migration recommendations.',
     stack: ['AWS Bedrock', 'RAG · OpenSearch', 'React + TypeScript', 'Lambda', 'DynamoDB'],
     metric: 'Weeks → Days',
     metricLabel: 'discovery cycle time',
@@ -32,18 +33,7 @@ export const PROJECTS: Project[] = [
   },
   {
     index: '02',
-    title: 'Kore.ai Voice Agent',
-    subtitle: 'Voice-first virtual agent replacing enterprise IVR',
-    description:
-      'Voice-enabled virtual agent built on Kore.ai SmartAssist with custom Node.js APIs — intent routing, fallback handling, and contextual FAQ retrieval powered by knowledge graphs and webhooks. Speech recognition and dynamic dialogue chaining proved voice-first AI can retire traditional IVR menus.',
-    stack: ['Kore.ai SmartAssist', 'Knowledge Graphs', 'Node.js', 'Speech Recognition'],
-    metric: '−IVR',
-    metricLabel: 'call-handling time cut, CSAT up',
-    year: '2024',
-  },
-  {
-    index: '03',
-    title: 'MLflow Monitoring Dashboard',
+    title: 'Model Observability Dashboard',
     subtitle: 'Real-time model observability for data-science teams',
     description:
       'Interactive analytics dashboard visualizing accuracy, loss, and F1 across experiment runs — with run comparison, model versioning, and alert-based drift tracking. Optimized API calls and caching cut data-retrieval latency by 40%.',
@@ -53,8 +43,8 @@ export const PROJECTS: Project[] = [
     year: '2025',
   },
   {
-    index: '04',
-    title: 'AIscraper',
+    index: '03',
+    title: 'Web Intelligence Pipeline',
     subtitle: 'Universal scraping & analytics automation',
     description:
       'Node.js + Puppeteer automation that aggregates postings and support tickets across web portals into structured datasets — headless scraping with smart delays, deduplication, and automated S3 archival. Stakeholders track trends without manual collection.',
@@ -62,6 +52,17 @@ export const PROJECTS: Project[] = [
     metric: '−70%',
     metricLabel: 'reporting time',
     year: '2025',
+  },
+  {
+    index: '04',
+    title: 'Voice-First Enterprise Agent',
+    subtitle: 'Voice-first virtual agent replacing enterprise IVR',
+    description:
+      'Voice-enabled virtual agent built on Kore.ai SmartAssist with custom Node.js APIs — intent routing, fallback handling, and contextual FAQ retrieval powered by knowledge graphs and webhooks. A working proof-of-concept: speech recognition and dynamic dialogue chaining showed voice-first AI can retire traditional IVR menus.',
+    stack: ['Kore.ai SmartAssist', 'Knowledge Graphs', 'Node.js', 'Speech Recognition'],
+    metric: '0→1',
+    metricLabel: 'voice-first IVR replacement — proof-of-concept',
+    year: '2024',
   },
   {
     index: '05',
@@ -119,25 +120,25 @@ export const JOBS: Job[] = [
     ],
     engagements: [
       {
-        client: 'Vanguard',
+        client: 'Fortune-100 asset manager',
         role: 'Full Stack Developer',
         detail:
           'Schema-driven UI system rendering components on-the-fly from LLM-generated JSON — deterministic component injection for AI-driven responses, deployed via S3 + CloudFront.',
       },
       {
-        client: 'Aptia',
+        client: 'Global benefits administrator',
         role: 'DevOps Engineer',
         detail:
-          'Multi-region CI/CD for the Neon modernization initiative (Jenkins, GitHub Actions, Azure DevOps) — release turnaround cut in half across US & UK delivery teams.',
+          'Multi-region CI/CD for a platform modernization program (Jenkins, GitHub Actions, Azure DevOps) — release turnaround cut in half across US & UK delivery teams.',
       },
       {
-        client: 'CardWorks',
+        client: 'National card issuer & servicer',
         role: 'DevOps Lead',
         detail:
           'Modernized the enterprise Data Lakehouse: migrated 100+ GitHub repos to Azure DevOps with full history, built CI/CD for Airflow DAGs, Glue jobs, and Snowflake pipelines.',
       },
       {
-        client: 'Flagstar Bank',
+        client: 'Top-tier US retail bank',
         role: 'API / Migration Engineer',
         detail:
           'MuleSoft API-led connectivity for digital banking + enterprise data-center consolidation — end-to-end migration lifecycles, DR replication, runbooks, and cutover leadership.',

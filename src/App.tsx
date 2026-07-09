@@ -13,6 +13,7 @@ import Experience from './components/Experience'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
 import Hud from './components/Hud'
+import { Analytics } from '@vercel/analytics/react'
 import { LINKS } from './data'
 
 // three.js and the console only load when needed — keeps the core bundle lean
@@ -130,6 +131,7 @@ export default function App() {
         </a>
       </footer>
       <Hud onOpenConsole={() => setConsoleOpen(true)} />
+      <Analytics />
       {!consoleOpen && (
         <button
           className="fab-console"

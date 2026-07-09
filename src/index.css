@@ -282,6 +282,27 @@ button {
   transform-origin: left;
 }
 
+.nav-resume {
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 99px;
+  padding: 0.3rem 0.85rem;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.nav-resume span {
+  color: var(--acid);
+}
+
+.nav-resume:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.nav-resume:hover span {
+  color: var(--bg);
+}
+
 .nav .clock {
   color: var(--ink-dim);
   font-variant-numeric: tabular-nums;
@@ -893,6 +914,31 @@ footer {
   margin-top: 3rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 99px;
+  padding: 1.05rem 2rem;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.ghost-btn span {
+  color: var(--acid);
+}
+
+.ghost-btn:hover {
+  border-color: var(--ink);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .magnetic-btn {

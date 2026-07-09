@@ -177,9 +177,9 @@ export function offlineReply(query: string): OfflineReply {
     }
   }
 
-  if (/(contact|email|hire|reach|linkedin|github|resume)/.test(q)) {
+  if (/(contact|email|hire|reach|linkedin|github|resume|résumé|cv)/.test(q)) {
     return {
-      text: `Direct line: ${LINKS.email}\nGitHub: ${LINKS.github}\nLinkedIn: ${LINKS.linkedin}\n\nOpen to FDE, AI Architect, and Solutions roles.`,
+      text: `Direct line: ${LINKS.email}\nGitHub: ${LINKS.github}\nLinkedIn: ${LINKS.linkedin}\nRésumé (PDF): ${LINKS.resume}\n\nOpen to FDE, AI Architect, and Solutions roles.`,
       section: 'contact',
     }
   }
@@ -187,7 +187,7 @@ export function offlineReply(query: string): OfflineReply {
   if (/\b(rag|llm|ai|bedrock|claude|agents?)\b/.test(q)) {
     const p = PROJECTS[0]
     return {
-      text: `Applied AI in production is the core of this system. Flagship: ${p.title} — ${p.subtitle}. ${p.metric} ${p.metricLabel}. Also: voice agents on Kore.ai, MLflow observability, fully-offline assistants on Apple Silicon.`,
+      text: `Applied AI in production is the core of this system. Flagship: ${p.title} — ${p.subtitle}. ${p.metric} ${p.metricLabel}. Also: voice-first enterprise agents, model observability dashboards, fully-offline assistants on Apple Silicon.`,
       section: 'work',
     }
   }
