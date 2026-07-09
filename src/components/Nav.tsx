@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import { track } from '@vercel/analytics'
+import { LINKS } from '../data'
 
 interface Props {
   onNavigate: (id: string) => void
   onOpenConsole: () => void
 }
 
-const LINKS = [
+const NAV_LINKS = [
   { id: 'work', label: 'Work' },
   { id: 'experience', label: 'Experience' },
   { id: 'stack', label: 'Stack' },
@@ -36,11 +38,20 @@ export default function Nav({ onNavigate, onOpenConsole }: Props) {
         DM<span>©26</span>
       </a>
       <div className="nav-links mono">
-        {LINKS.map((l) => (
+        {NAV_LINKS.map((l) => (
           <button key={l.id} onClick={() => onNavigate(l.id)}>
             {l.label}
           </button>
         ))}
+        <a
+          className="nav-resume"
+          href={LINKS.resume}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => track('resume_download', { where: 'nav' })}
+        >
+          Résumé <span>↓</span>
+        </a>
         <button className="nav-console" onClick={onOpenConsole} data-cursor="talk">
           DEEP·OS <span>⌘K</span>
         </button>
