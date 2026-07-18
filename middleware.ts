@@ -163,8 +163,6 @@ const MAINTENANCE_PAGE = `<!doctype html>
     <span class="tag"><span class="dot"></span>Under maintenance</span>
     <h1>Tuning a few things.<br /><span class="accent">Back shortly.</span></h1>
     <p>This site is briefly offline for updates. Nothing to do on your end — check back soon.</p>
-    <div class="rule"></div>
-    <p class="foot">Deep Manek — Forward Deployed AI Engineer · <a href="https://www.linkedin.com/in/deepmanek">LinkedIn</a></p>
   </main>
 </body>
 </html>`
